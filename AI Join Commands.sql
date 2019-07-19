@@ -4,7 +4,9 @@ SELECT
       CL.[card_name],
       CL.[set_name]	,
 	  CL.cmc,
-	  ISNULL (CL.mana_cost,''),
+	  ISNULL (CL.mana_cost,'') As casting_cost,
+	  CL.type_line,
+	  CL.rarity,
 	  CL.artist,
       CEL.[standard],
       CEL.[modern]	,
@@ -26,7 +28,7 @@ SELECT
 	EL.event_format,
 	EL.state,
 	EL.city,
-	ISNULL (Corp.corp_name, 'Unsponsored')
+	ISNULL (Corp.corp_name, 'Unsponsored') As Sponsor
 
 FROM Event_List AS EL
 INNER JOIN Corporation_List AS Corp
@@ -68,3 +70,8 @@ SELECT
 From Sales_Transactions AS Sales
 LEFT JOIN Event_List AS Ev 
 ON Sales.event_id = Ev.event_id
+
+
+/* also agents*/
+Select *
+From Agent_List
